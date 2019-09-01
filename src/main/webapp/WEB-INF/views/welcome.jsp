@@ -57,7 +57,7 @@
 				<spring:message code="label.get.weather" />
 			</button>
 			
-			<button id="ajax-call" class="btn btn-lg btn-warning btn-block" type="button">
+			<button id="ajax-call" class="btn btn-lg btn-warning btn-block" onClick="simpleCall();" type="button">
 				
 			Get Data by JS
 			</button>
