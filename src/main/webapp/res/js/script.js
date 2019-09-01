@@ -4,6 +4,13 @@ function getWeatherData() {
 	
 	var city = $("#city").val();
 	
+	if(city == undefined || city == '') {
+		alert("Please enter city(or cities)");
+		return;
+	}
+		
+		
+	
 	var request = $.ajax({
 	    url: '../weather-app/city?name=' + city,
 	    type: 'GET',
