@@ -18,19 +18,20 @@ public class WeatherServiceImpl implements WeatherService {
 	public List<WeatherInfoModel> getWeatherInfoByCity(String cityNames) {
 
 		List<WeatherInfoModel> weatherInfoModels = new ArrayList<>();
-
 		RestTemplate restTemplate = new RestTemplate();
-
+		
 		String[] cityArray = cityNames.split(",");
 
+		
 		for (String city : cityArray) {
+			
 			if (!StringUtils.isEmpty(city)) {
+				
 				WeatherInfoModel weatherInfoModel = new WeatherInfoModel();
 				String weatherUrlForCity = String.format(ConstantUtils.WEATHER_API, city.trim());
-
 				weatherInfoModel = restTemplate.getForObject(weatherUrlForCity, WeatherInfoModel.class);
 
-				System.out.println(weatherUrlForCity);
+				//System.out.println(weatherUrlForCity);
 
 				weatherInfoModels.add(weatherInfoModel);
 			}

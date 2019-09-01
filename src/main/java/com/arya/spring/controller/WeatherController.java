@@ -10,15 +10,21 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.arya.spring.exception.EmptyCityNameException;
+import com.arya.spring.model.ExceptionJSONInfo;
 import com.arya.spring.model.WeatherInfoModel;
 import com.arya.spring.service.WeatherService;
+import com.arya.spring.utils.ConstantUtils;
 
 @Controller
 public class WeatherController {
@@ -42,9 +48,8 @@ public class WeatherController {
 	// API :: http://localhost:8080/weather-app/weather.htm
 	
 	@RequestMapping(value = "weather", method = RequestMethod.POST)
-	public String weather(HttpServletRequest req, HttpServletResponse res, Model model) {
+	public String weather(HttpServletRequest req, HttpServletResponse res, Model model) throws EmptyCityNameException {
 
-		// logs debug message
 		if (logger.isDebugEnabled()) {
 			logger.debug("Inside WeatherController-weather()");
 		}
@@ -53,15 +58,17 @@ public class WeatherController {
 
 		String city = req.getParameter("city");
 
-		try {
+		if (!StringUtils.isEmpty(city)) {
+			logger.error(ConstantUtils.EMPTY_CITY_NAME);
+			throw new EmptyCityNameException(ConstantUtils.EMPTY_CITY_NAME);
+			
+		} else {
 			weatherInfoModels = weatherService.getWeatherInfoByCity(city);
-		} catch (Exception e) {
-			logger.error("Error occured while fetching weather by city name ", e);
+			System.out.println(city);
+			model.addAttribute("city", city);
+			model.addAttribute("weatherInfoModels", weatherInfoModels);
 		}
-
-		System.out.println(city);
-		model.addAttribute("city", city);
-		model.addAttribute("weatherInfoModels", weatherInfoModels);
+		logger.info("Weather data is updated for " + city);
 
 		return "loginsuccess";
 
@@ -103,6 +110,32 @@ public class WeatherController {
 		}
 
 		return weatherInfoModels;
+	}
+	
+	
+//	
+//	@ExceptionHandler(EmptyCityNameException.class)
+//	public ModelAndView handleEmptyCityNameException(HttpServletRequest request, Exception ex){
+//		logger.error("Requested URL="+request.getRequestURL());
+//		logger.error("Exception Raised="+ex);
+//		
+//		ModelAndView modelAndView = new ModelAndView();
+//	    modelAndView.addObject("exception", ex);
+//	    modelAndView.addObject("url", request.getRequestURL());
+//	    
+//	    modelAndView.setViewName("error/errors");
+//	    return modelAndView;
+//	}
+	
+	
+	@ExceptionHandler(EmptyCityNameException.class)
+	public @ResponseBody ExceptionJSONInfo handleEmployeeNotFoundException(HttpServletRequest request, Exception ex){
+		
+		ExceptionJSONInfo response = new ExceptionJSONInfo();
+		response.setUrl(request.getRequestURL().toString());
+		response.setMessage(ex.getMessage());
+		
+		return response;
 	}
 
 }
