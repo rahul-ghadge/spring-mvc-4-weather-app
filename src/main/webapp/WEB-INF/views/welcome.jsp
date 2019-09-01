@@ -42,7 +42,7 @@
 
 			<div class="form-label-group">
 				<spring:message code="label.city" />
-				<input type="text" id="searchItem" name="city" class="form-control"
+				<input type="text" id="city" name="city" class="form-control"
 					placeholder="Enter City or Cities(with comma separated)" required
 					autofocus>
 
@@ -56,6 +56,12 @@
 			<button class="btn btn-lg btn-primary btn-block" type="submit">
 				<spring:message code="label.get.weather" />
 			</button>
+			
+			<button id="ajax-call" class="btn btn-lg btn-warning btn-block" type="button">
+				
+			Get Data by JS
+			</button>
+			
 			<p class="mt-5 mb-3 text-muted text-center">&copy;OpenWeather@2019</p>
 		</form:form>
 

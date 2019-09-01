@@ -1,7 +1,9 @@
-var query = $("#searchItem").value;
+var query = $("#city").value;
 
 
-$("button").click(function(){
+
+
+$("#ajax-call").click(function(){
 var request = $.ajax({
     url: '/assets/data.json',
     type: 'GET',
