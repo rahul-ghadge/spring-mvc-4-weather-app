@@ -1,4 +1,4 @@
-# spring-mvc-4-weather-app
+# Spring MVC Weather Application
 
 This application helps to get the Weather Information for different cities. Based on the API call made to the https://openweathermap.org/current <br>
 It will provide the out and the json response gets parsed and returned to the UI through Spring MVC.
