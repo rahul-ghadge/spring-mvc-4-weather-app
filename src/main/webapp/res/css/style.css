@@ -22,6 +22,20 @@ body {
 	width:100%;
 }
 
+.output-wrapper {
+	margin-left: -10%;
+    margin-top: 3%;
+}
+
+
+/* .output-wrapper{display: none} */
+#output p{font-weight: 600}
+#output span{color:#e44040!important;text-transform: uppercase;border-radius: 25px; background: #fff;padding: 0 .7em}
+
+
+
+
+
 .light-bg {
 	background: #ffffff33 !important;
 	border-radius: 6px;

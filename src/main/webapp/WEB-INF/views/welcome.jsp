@@ -52,28 +52,22 @@
 
 			</div>
 
-			<div class="checkbox mb-3">
-				<label> <input type="checkbox" value="remember-me">
-					<spring:message code="label.choose.default" />
-				</label>
-			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">
+
+			<button id="ajax-call" class="btn btn-lg btn-primary btn-block"
+				onClick="getWeatherData();" type="button">
 				<spring:message code="label.get.weather" />
 			</button>
 
-			<button id="ajax-call" class="btn btn-lg btn-warning btn-block"
-				onClick="simpleCall();" type="button">Get Data by JS</button>
 
-			<p class="mt-5 mb-3 text-muted text-center">&copy;OpenWeather@2019</p>
 		</form:form>
 
 
-		<ul class="output-wrapper">
-			<li class="light-bg dark-bg">
-				<div id="output"></div>
-				<p id="error" class="text-danger"></p>
-			</li>
+		<ul class="output-wrapper light-bg dark-bg">
+			<div id="output"></div>
+			<p id="error" class="text-danger"></p>
 		</ul>
+
+		<p class="mt-5 mb-3 text-muted text-center">&copy;OpenWeather@2019</p>
 
 	</div>
 

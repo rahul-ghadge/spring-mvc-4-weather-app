@@ -76,7 +76,7 @@ public class WeatherController {
 		}
 		logger.info("Weather data is updated for " + city);
 
-		return "loginsuccess";
+		return "weather-data";
 
 	}
 

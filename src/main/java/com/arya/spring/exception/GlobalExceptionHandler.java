@@ -1,4 +1,4 @@
-package com.arya.spring.controller;
+package com.arya.spring.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -6,8 +6,6 @@ import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.arya.spring.exception.EmptyCityNameException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
