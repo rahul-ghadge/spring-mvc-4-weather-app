@@ -7,7 +7,8 @@ It will provide the out and the json response gets parsed and returned to the UI
 
 * <p> UI designed using jsp and made jQuery Ajax call to the Spring MVC. </p>
 * <p> Spring MVC Controller handles the request and make calls to the https://openweathermap.org/current. </p>
-* <p>Internalization implemented using Spring.</p>
+* <p> Internalization implemented using Spring.</p>
+* <p> This API help to get the details for only 1 city.</p>
 
 <strong> BUILD the application as Maven Project </strong>
 
