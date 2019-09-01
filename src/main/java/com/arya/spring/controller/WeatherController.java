@@ -11,17 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.arya.spring.exception.EmptyCityNameException;
-import com.arya.spring.model.ExceptionJSONInfo;
 import com.arya.spring.model.WeatherInfoModel;
 import com.arya.spring.service.WeatherService;
 import com.arya.spring.utils.ConstantUtils;
@@ -34,15 +31,29 @@ public class WeatherController {
 	@Autowired
 	private WeatherService weatherService;
 
-	// API :: http://localhost:8080/weather-app/
-
+	
+	/*
+	 * API to redirect on welcome page 
+	 * 
+	 * http://localhost:8080/weather-app/
+	 */
 	@GetMapping("/")
 	public String hello(Model model) {
 		return "welcome";
 	}
 
-	// API :: http://localhost:8080/weather-app/weather.htm
+	
 
+	/*
+	 * API to get weather data from external API and send to UI
+	 * http://localhost:8080/weather-app/weather.htm
+	 * 
+	 * @param HttpServletRequest req,
+	 * 
+	 * @param HttpServletResponse res,
+	 * 
+	 * @paramModel model
+	 */
 	@RequestMapping(value = "weather", method = RequestMethod.POST)
 	public String weather(HttpServletRequest req, HttpServletResponse res, Model model) throws EmptyCityNameException {
 
@@ -60,7 +71,6 @@ public class WeatherController {
 
 		} else {
 			weatherInfoModels = weatherService.getWeatherInfoByCity(city);
-			System.out.println(city);
 			model.addAttribute("city", city);
 			model.addAttribute("weatherInfoModels", weatherInfoModels);
 		}
@@ -70,9 +80,14 @@ public class WeatherController {
 
 	}
 
-	// API :: http://localhost:8080/weather-app/London
+	
 
-	@RequestMapping(value = "/{city}", method = RequestMethod.GET)
+	/*
+	 * API to get weather data from external API using @PathVariable and send
+	 * response in JSON format 
+	 * 
+	 * http://localhost:8080/weather-app/London
+	 */@RequestMapping(value = "/{city}", method = RequestMethod.GET)
 	public @ResponseBody List<WeatherInfoModel> weatherByCityPathVar(@PathVariable String city) {
 
 		logger.info("Inside WeatherController - weatherByCityPathVar()");
@@ -87,8 +102,14 @@ public class WeatherController {
 		return weatherInfoModels;
 	}
 
-	// API :: http://localhost:8080/weather-app/city?name=London
+	
 
+	/*
+	* API to get weather data from external API using @RequestParam and send
+	* response in JSON format 
+	* 
+	* http://localhost:8080/weather-app/city?name=London
+	*/
 	@RequestMapping(value = "/city", method = RequestMethod.GET)
 	public @ResponseBody List<WeatherInfoModel> weatherByCityReqParam(@RequestParam("name") String city) {
 
