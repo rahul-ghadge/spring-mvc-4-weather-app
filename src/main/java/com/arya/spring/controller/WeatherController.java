@@ -33,20 +33,16 @@ public class WeatherController {
 
 	@Autowired
 	private WeatherService weatherService;
-	
-	
-	
+
 	// API :: http://localhost:8080/weather-app/
-	
+
 	@GetMapping("/")
 	public String hello(Model model) {
 		return "welcome";
 	}
 
-	
-	
 	// API :: http://localhost:8080/weather-app/weather.htm
-	
+
 	@RequestMapping(value = "weather", method = RequestMethod.POST)
 	public String weather(HttpServletRequest req, HttpServletResponse res, Model model) throws EmptyCityNameException {
 
@@ -58,10 +54,10 @@ public class WeatherController {
 
 		String city = req.getParameter("city");
 
-		if (!StringUtils.isEmpty(city)) {
+		if (StringUtils.isEmpty(city)) {
 			logger.error(ConstantUtils.EMPTY_CITY_NAME);
 			throw new EmptyCityNameException(ConstantUtils.EMPTY_CITY_NAME);
-			
+
 		} else {
 			weatherInfoModels = weatherService.getWeatherInfoByCity(city);
 			System.out.println(city);
@@ -74,10 +70,8 @@ public class WeatherController {
 
 	}
 
-	
-	
 	// API :: http://localhost:8080/weather-app/London
-	
+
 	@RequestMapping(value = "/{city}", method = RequestMethod.GET)
 	public @ResponseBody List<WeatherInfoModel> weatherByCityPathVar(@PathVariable String city) {
 
@@ -92,11 +86,9 @@ public class WeatherController {
 
 		return weatherInfoModels;
 	}
-	
-	
-	
+
 	// API :: http://localhost:8080/weather-app/city?name=London
-	
+
 	@RequestMapping(value = "/city", method = RequestMethod.GET)
 	public @ResponseBody List<WeatherInfoModel> weatherByCityReqParam(@RequestParam("name") String city) {
 
@@ -112,30 +104,5 @@ public class WeatherController {
 		return weatherInfoModels;
 	}
 	
-	
-//	
-//	@ExceptionHandler(EmptyCityNameException.class)
-//	public ModelAndView handleEmptyCityNameException(HttpServletRequest request, Exception ex){
-//		logger.error("Requested URL="+request.getRequestURL());
-//		logger.error("Exception Raised="+ex);
-//		
-//		ModelAndView modelAndView = new ModelAndView();
-//	    modelAndView.addObject("exception", ex);
-//	    modelAndView.addObject("url", request.getRequestURL());
-//	    
-//	    modelAndView.setViewName("error/errors");
-//	    return modelAndView;
-//	}
-	
-	
-	@ExceptionHandler(EmptyCityNameException.class)
-	public @ResponseBody ExceptionJSONInfo handleEmployeeNotFoundException(HttpServletRequest request, Exception ex){
-		
-		ExceptionJSONInfo response = new ExceptionJSONInfo();
-		response.setUrl(request.getRequestURL().toString());
-		response.setMessage(ex.getMessage());
-		
-		return response;
-	}
 
 }

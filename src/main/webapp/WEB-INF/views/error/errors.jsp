@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Error Page</title>
+<title>500 Error Page</title>
 </head>
 <body>
 	<h2>Application Error, please contact support.</h2>
@@ -19,11 +19,6 @@
 	<br>
 	<br>
 
-	<strong>Exception Stack Trace</strong>
-	<br>
-	<c:forEach items="${exception.stackTrace}" var="ste">
-	${ste}
-</c:forEach>
 
 </body>
 </html>

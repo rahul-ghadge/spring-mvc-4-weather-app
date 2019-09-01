@@ -31,7 +31,7 @@ public class WeatherServiceImpl implements WeatherService {
 				String weatherUrlForCity = String.format(ConstantUtils.WEATHER_API, city.trim());
 				weatherInfoModel = restTemplate.getForObject(weatherUrlForCity, WeatherInfoModel.class);
 
-				//System.out.println(weatherUrlForCity);
+				System.out.println(weatherUrlForCity);
 
 				weatherInfoModels.add(weatherInfoModel);
 			}
