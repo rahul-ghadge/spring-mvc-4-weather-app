@@ -12,21 +12,34 @@ function simpleCall() {
 	    contentType: 'application/json; charset=utf-8'
 	});
 
-	request.done(function(data) {
-	    $("#output").html(
-	    `<h3>${data.clouds}</h3>
-	    <p><span class="logo">${data.loc}</span> ${data.main} mi</p>
-	    <p class="stores-desc">Testing</p>
-	    <p class="stores-timing"><strong> Test &nbsp;</strong>  
-	      0:00 am - 0:00 pm &nbsp; <strong>tst</strong>  ${data.main} pm  &nbsp;
-	      <strong> tst&nbsp;</strong>  0:00 am - 0:00 pm</p>
-	    <div class="store-checkin">Click here</div>
-	    </div>`);
+	request.done(function(dataArray) {
+		
+		console.log(dataArray)
+		
+		
+	    for(var i =0;i < dataArray.length-1;i++)
+	    	{
+	    	//var data = dataArray[i];  
+			    $("#output").html(
+			    `<h4 class="mb-3">Weather details of &nbsp;<span>${dataArray[i].name}</span></h4>
+			    <hr style="border: 1px dashed">
+			    <div class="row px-4">
+			    <p>Id : ${dataArray[i].id}</p>
+			    <p class="ml-auto">Code : ${dataArray[i].cod}</p>
+			    </div>
+			    <div class="row px-4">
+			    <p>Latitude : ${dataArray[i].coord.lat}</p>
+			    <p  class="ml-auto">Longitude : ${dataArray[i].coord.lon}</p>
+			    </div>`);
+	    	}
+
 	    
-
-
-	    console.log(data)
 	});
+	
+	if($('.output-wrapper li').length > 0){
+	    $('.output-wrapper li').css("display","block");
+	  }
+	
 	request.fail(function(error) {
 	    $('#error').append('Error: ' + errorMessage);
 	    console.log(error);
@@ -34,10 +47,12 @@ function simpleCall() {
 }
 
 
-/*$("button").click(function(){
-
-
-});*/
+/*
+ * $("button").click(function(){
+ * 
+ * 
+ * });
+ */
 // $("button").click(function(){
 // $.ajax({url: "/assets/data.json", success: function(result){
 // $("#output").html(result);

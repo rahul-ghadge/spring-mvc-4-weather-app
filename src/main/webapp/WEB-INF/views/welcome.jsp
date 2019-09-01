@@ -21,20 +21,24 @@
 
 <body>
 
-<div class="locale">
-	<a href="?locale=en">English </a> |
-	<a href="?locale=fr">French </a>
-</div>	
+	<div class="locale">
+		<a href="?locale=en">English </a> | <a href="?locale=fr">French </a>
+	</div>
 	<div align="center">
-		
-		<form:form role="form" action="weather.htm" modelAttribute="weather" class="light-bg">
+
+		<form:form role="form" action="weather.htm" modelAttribute="weather"
+			class="light-bg">
 			<div class="img-wrapper mb-4">
-			<img class="mb-4" src="${pageContext.request.contextPath}/res/img/logo.png" /> 
-				
+				<img class="mb-4"
+					src="${pageContext.request.contextPath}/res/img/logo.png" />
+
 				<p>
 					<spring:message code="label.one" />
-					<code><spring:message code="label.weather.data" /></code>
-					<spring:message code="label.two" /> <a
+					<code>
+						<spring:message code="label.weather.data" />
+					</code>
+					<spring:message code="label.two" />
+					<a
 						href="https://en.wikipedia.org/wiki/List_of_towns_and_cities_with_100,000_or_more_inhabitants/cityname:_B"
 						target="_blank"><spring:message code="label.all.cities" /></a>
 				</p>
@@ -47,7 +51,7 @@
 					autofocus>
 
 			</div>
-			
+
 			<div class="checkbox mb-3">
 				<label> <input type="checkbox" value="remember-me">
 					<spring:message code="label.choose.default" />
@@ -56,15 +60,20 @@
 			<button class="btn btn-lg btn-primary btn-block" type="submit">
 				<spring:message code="label.get.weather" />
 			</button>
-			
-			<button id="ajax-call" class="btn btn-lg btn-warning btn-block" onClick="simpleCall();" type="button">
-				
-			Get Data by JS
-			</button>
-			
+
+			<button id="ajax-call" class="btn btn-lg btn-warning btn-block"
+				onClick="simpleCall();" type="button">Get Data by JS</button>
+
 			<p class="mt-5 mb-3 text-muted text-center">&copy;OpenWeather@2019</p>
 		</form:form>
 
+
+		<ul class="output-wrapper">
+			<li class="light-bg dark-bg">
+				<div id="output"></div>
+				<p id="error" class="text-danger"></p>
+			</li>
+		</ul>
 
 	</div>
 
