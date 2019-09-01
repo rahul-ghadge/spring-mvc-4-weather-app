@@ -11,7 +11,7 @@ body {
 	padding-top: 40px;
 	padding-bottom: 40px;
 	/* background-color: #202020; */
-	background-image: url('res/img/natural-green-bg2.jpg');
+	background-image: url('../img/natural-green-bg2.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	color: #fff;
