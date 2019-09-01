@@ -31,15 +31,29 @@ public class WeatherController {
 	@Autowired
 	private WeatherService weatherService;
 
-	// API :: http://localhost:8080/weather-app/
-
+	
+	/*
+	 * API to redirect on welcome page 
+	 * 
+	 * http://localhost:8080/weather-app/
+	 */
 	@GetMapping("/")
 	public String hello(Model model) {
 		return "welcome";
 	}
 
-	// API :: http://localhost:8080/weather-app/weather.htm
+	
 
+	/*
+	 * API to get weather data from external API and send to UI
+	 * http://localhost:8080/weather-app/weather.htm
+	 * 
+	 * @param HttpServletRequest req,
+	 * 
+	 * @param HttpServletResponse res,
+	 * 
+	 * @paramModel model
+	 */
 	@RequestMapping(value = "weather", method = RequestMethod.POST)
 	public String weather(HttpServletRequest req, HttpServletResponse res, Model model) throws EmptyCityNameException {
 
@@ -57,7 +71,6 @@ public class WeatherController {
 
 		} else {
 			weatherInfoModels = weatherService.getWeatherInfoByCity(city);
-			System.out.println(city);
 			model.addAttribute("city", city);
 			model.addAttribute("weatherInfoModels", weatherInfoModels);
 		}
@@ -67,9 +80,14 @@ public class WeatherController {
 
 	}
 
-	// API :: http://localhost:8080/weather-app/London
+	
 
-	@RequestMapping(value = "/{city}", method = RequestMethod.GET)
+	/*
+	 * API to get weather data from external API using @PathVariable and send
+	 * response in JSON format 
+	 * 
+	 * http://localhost:8080/weather-app/London
+	 */@RequestMapping(value = "/{city}", method = RequestMethod.GET)
 	public @ResponseBody List<WeatherInfoModel> weatherByCityPathVar(@PathVariable String city) {
 
 		logger.info("Inside WeatherController - weatherByCityPathVar()");
@@ -84,8 +102,14 @@ public class WeatherController {
 		return weatherInfoModels;
 	}
 
-	// API :: http://localhost:8080/weather-app/city?name=London
+	
 
+	/*
+	* API to get weather data from external API using @RequestParam and send
+	* response in JSON format 
+	* 
+	* http://localhost:8080/weather-app/city?name=London
+	*/
 	@RequestMapping(value = "/city", method = RequestMethod.GET)
 	public @ResponseBody List<WeatherInfoModel> weatherByCityReqParam(@RequestParam("name") String city) {
 

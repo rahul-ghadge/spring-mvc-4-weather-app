@@ -2,16 +2,30 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Weather App</title>
+<title><spring:message code="label.heading" /></title>
+
+<spring:url value="/res/css/style.css" var="cssUrl" />
+<spring:url value="/res/css/bootstrap.min.css" var="bootstrapUrl" />
+<spring:url value="/res/js/jquery-3.4.1.js" var="jqueryUrl" />
+<spring:url value="/res/js/script.js" var="scriptUrl" />
+
+<link href="${cssUrl}" rel="stylesheet" />
+<link href="${bootstrapUrl}" rel="stylesheet" />
+<script src="${jqueryUrl}"></script>
+<script src="${scriptUrl}"></script>
+
 </head>
 <body>
 
-	<%-- Entered city : ${ city } 
-	${weatherInfoModel}
-	 --%>
+<div class="locale">
+	<a href="?locale=en">English </a> |
+	<a href="?locale=fr">French </a>
+</div>
 
 	<c:forEach items="${weatherInfoModels}" var="weatherInfoModel">
 	
